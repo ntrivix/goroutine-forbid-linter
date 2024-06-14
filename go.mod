@@ -1,4 +1,4 @@
-module github.com/golangci/example-plugin-module-linter
+module github.com/golangci/goroutine-forbid-linter
 
 go 1.21
 
