@@ -1,10 +1,8 @@
 package linters
 
 import (
-	"go/ast"
-	"strings"
-
 	"github.com/golangci/plugin-module-register/register"
+	"go/ast"
 	"golang.org/x/tools/go/analysis"
 )
 
@@ -55,21 +53,14 @@ func (f *PluginExample) GetLoadMode() string {
 func (f *PluginExample) run(pass *analysis.Pass) (interface{}, error) {
 	for _, file := range pass.Files {
 		ast.Inspect(file, func(n ast.Node) bool {
-			if comment, ok := n.(*ast.Comment); ok {
-				if strings.HasPrefix(comment.Text, "// TODO:") || strings.HasPrefix(comment.Text, "// TODO():") {
-					pass.Report(analysis.Diagnostic{
-						Pos:            comment.Pos(),
-						End:            0,
-						Category:       "todo",
-						Message:        "TODO comment has no author",
-						SuggestedFixes: nil,
-					})
-				}
+			if goStmt, ok := n.(*ast.GoStmt); ok {
+				pass.Reportf(
+					goStmt.Pos(),
+					`"go" keyword usage is restricted. Use future/async wrapper instead.`,
+				)
 			}
-
 			return true
 		})
 	}
-
 	return nil, nil
 }
