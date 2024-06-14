@@ -1,4 +1,4 @@
-module github.com/golangci/goroutine-forbid-linter
+module github.com/ntrivix/goroutine-forbid-linter
 
 go 1.21
 
