@@ -1,10 +1,9 @@
-package main
+package example
 
 import (
 	"github.com/golangci/plugin-module-register/register"
 	"go/ast"
 	"golang.org/x/tools/go/analysis"
-	"golang.org/x/tools/go/analysis/singlechecker"
 )
 
 var Analyzer = &analysis.Analyzer{
@@ -79,8 +78,4 @@ func run(pass *analysis.Pass) (interface{}, error) {
 		})
 	}
 	return nil, nil
-}
-
-func main() {
-	singlechecker.Main(Analyzer)
 }
